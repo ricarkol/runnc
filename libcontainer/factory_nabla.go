@@ -152,17 +152,17 @@ func (l *NablaFactory) Create(id string, config *configs.Config) (Container, err
 			return nil, err
 		}
 	} else {
-		fsPath, err = createRootfsISO(config, containerRoot)
-		if err != nil {
-			return nil, err
-		}
+		//fsPath, err = createRootfsISO(config, containerRoot)
+		//if err != nil {
+		//	return nil, err
+		//}
 	}
 
 	err = network.CreateTapInterface(nablaTapName(id), nil, nil)
 	if err != nil {
-		if fsPath != "" {
-			os.Remove(fsPath)
-		}
+		//if fsPath != "" {
+		//	os.Remove(fsPath)
+		//}
 		return nil, fmt.Errorf("Unable to create tap interface: %v", err)
 	}
 

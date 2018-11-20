@@ -45,8 +45,8 @@ function docker_node_nabla_run() {
 	[ "$status" -eq 0 ]
 }
 
-@test "test node-hello from a pre-built node_tests.iso" {
-	nabla_run -unikernel node.nabla -volume node_tests.iso:/hello -- /hello/app.js
+@test "test node-hello from a directory" {
+	nabla_run -unikernel node.nabla -volume hello:/hello -- /hello/app.js
 	[[ "$output" == *"hello from node"* ]]
 	[ "$status" -eq 0 ]
 }

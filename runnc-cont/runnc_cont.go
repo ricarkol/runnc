@@ -56,13 +56,13 @@ func setupDisk(path string) (string, error) {
 	}
 
 	if pathInfo.Mode()&os.ModeDir != 0 {
-		// path is a dir, so we flat it to an iso disk
+		// "path" is a dir
+		return path, nil
+	} else {
+		// path is a file
 		return "", fmt.Errorf(
-			"Input storage %s is not an ISO", path)
+			"Input storage %s is not a directory", path)
 	}
-
-	// "path" is a file, so we treat it like a disk
-	return path, nil
 }
 
 func main() {
@@ -121,9 +121,9 @@ func run(nablarun string, unikernel string, tapName string,
 	inDocker bool, inK8s bool, volume []string,
 	cmdargs string, envVars []string, cwd string, mem int) int {
 
-	disk, err := setupDisk(volume[0])
+	dir, err := setupDisk(volume[0])
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Could not setup the disk: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Could not setup the dir: %v\n", err)
 		return 1
 	}
 
@@ -183,14 +183,14 @@ func run(nablarun string, unikernel string, tapName string,
 			"--mem=" + strconv.Itoa(mem),
 			"--net-mac=" + mac,
 			"--net=" + tapName,
-			"--disk=" + disk,
+			"--dir=" + dir,
 			unikernel,
 			unikernelArgs}
 	} else {
 		args = []string{nablarun,
 			"--mem=" + strconv.Itoa(mem),
 			"--net=" + tapName,
-			"--disk=" + disk,
+			"--dir=" + dir,
 			unikernel,
 			unikernelArgs}
 	}

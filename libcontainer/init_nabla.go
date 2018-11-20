@@ -46,7 +46,7 @@ func nablaRunArgs(cfg *initConfig) ([]string, error) {
 		"-nabla-run", NablaRunBin,
 		"-tap", cfg.TapName,
 		"-cwd", cfg.Cwd,
-		"-volume", cfg.FsPath + ":/",
+		"-volume", cfg.Root + ":/",
 		"-unikernel", filepath.Join(cfg.Root, cfg.Args[0])}
 
 	for _, e := range cfg.Env {
