@@ -42,7 +42,6 @@ func nablaRunArgs(cfg *initConfig) ([]string, error) {
 	}
 
 	args := []string{NablaRunncContBin,
-		"-k8s",
 		"-nabla-run", NablaRunBin,
 		"-tap", cfg.TapName,
 		"-cwd", cfg.Cwd,
