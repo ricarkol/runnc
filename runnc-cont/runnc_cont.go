@@ -82,7 +82,7 @@ func main() {
 		"Mask v4 (defaults to 24)")
 	gwv4 := flag.String("gwv4", "10.0.0.1",
 		"Gateway v4 (defaults to 10.0.0.1")
-	mem := flag.Int("mem", 512,
+	mem := flag.Int("mem", 1024,
 		"Max memory size in MBs (defaults to 512)")
 	inDocker := flag.Bool("docker", false,
 		"Is this running in a Docker container")
@@ -184,6 +184,7 @@ func run(nablarun string, unikernel string, tapName string,
 			"--net-mac=" + mac,
 			"--net=" + tapName,
 			"--dir=" + dir,
+			"--log=/log.lfs",
 			unikernel,
 			unikernelArgs}
 	} else {
@@ -191,6 +192,7 @@ func run(nablarun string, unikernel string, tapName string,
 			"--mem=" + strconv.Itoa(mem),
 			"--net=" + tapName,
 			"--dir=" + dir,
+			"--log=/log.lfs",
 			unikernel,
 			unikernelArgs}
 	}
